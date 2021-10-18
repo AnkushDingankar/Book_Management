@@ -16,7 +16,7 @@ const author =[
     {
         id:1,
         name:"Ankush",
-        books:["12345872","secreateBook"]
+        books:["1234Book","secreateBook"]
 
     },
 
@@ -33,8 +33,14 @@ const publication =[
     {
         id:1,
         name:"writex",
-        books:["1234Books"]
+        books:["1234Book"]
+    },
+    {
+        id:2,
+        name:"writex2",
+        books:[]
     }
+
 
 ]
 

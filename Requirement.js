@@ -32,3 +32,20 @@
 //To get all the Publication :- Done
 //To get a Specific Publication :- Done
 //To get a list of publications based on a book :-Done
+
+
+//POST Request
+ //1.Add New Book
+ //2.Add New Publication
+ //3.Add new author
+
+ //PUT Method
+
+ //update book detailes if author is changed
+ //
+
+ //DELETE Property :-
+//1.Delete Book :-DONE
+//2.Delete author from Book:-
+//3.Delete author from related book from author:-DONE
+
