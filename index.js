@@ -270,7 +270,7 @@ booky.get("/publication/i/:id",async(req,res)=>{
 
 /*
 Route        /publication/b/
-Description  GET  a list of publications based on a book
+Description  GET a list of publications based on a book
 Access       PUBLIC
 Parameter    book
 Methods      GET
@@ -388,7 +388,7 @@ booky.put("/book/author/update/:isbn",async(req,res)=>{
 
 /*
 Route        /publication/new
-Description  Add New author
+Description  Add New Publication
 Access       PUBLIC
 Parameter    None
 Methods      POST
@@ -405,8 +405,8 @@ booky.post("/publication/new",(req,res)=>{
 })
 
 /*
-Route        /publication/new
-Description  Add New author
+Route        /books/update
+Description  Book Update
 Access       PUBLIC
 Parameter    None
 Methods      POST
@@ -613,34 +613,20 @@ Methods      DELETE
 
 booky.delete("/book/delete/author/:isbn/:authorId",async(req,res)=>{
 
-    //Update the book database
 
-    const updateBookDatabase = await BookModel.findOneAndDelete(
-        {
-            ISBN : req.params.isbn
-        }
+    const isbn = req.params.isbn;
+    const author_ = parseInt(req.params.authorId);
+
+    const updatedBook = await BookModel.findOneAndUpdate(
+        { ISBN: isbn },
+        { $pull: { authors: author_ } },
+        { new: true }
     );
 
-   /* database.books.forEach((book)=>{
-        if(book.ISBN === req.param.isbn)
-        {
-            const newAthorList=book.author.filter(
-                (eachAthur)=>eachAthur !==parseInt(req.params.authorId)
-                )
-
-                book.author=newAthorList
-                return;
-        }
-    });*/
-
-
-    //Update the author database
-
-    const updatedAuthorDatabase =await AuthorModel.findOneAndDelete(
-        {
-            id : req.params.authorId
-        }
-          
+    const updatedAuthor = await AuthorModel.findOneAndUpdate(
+        { id: author_ },
+        { $pull: { books: isbn } },
+        { new: true }
     );
 
     /*database.author.forEach((eachAuthor) => {
@@ -654,8 +640,8 @@ booky.delete("/book/delete/author/:isbn/:authorId",async(req,res)=>{
       });*/
 
       return res.json({
-        book: updateBookDatabase,
-        author: updatedAuthorDatabase,
+        book: updatedBook,
+        author: updatedAuthor,
         message: "Author was deleted!!!!"
       });
     
